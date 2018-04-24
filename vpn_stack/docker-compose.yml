@@ -8,9 +8,9 @@ services:
         ipv4_address: 10.5.0.2
 
   vpn:
-    build: ../ovpn
+    build: ../openvpn
     volumes:
-      - ../ovpn:/etc/openvpn
+      - ../openvpn:/etc/openvpn
     devices:
       - /dev/net/tun:/dev/net/tun
     cap_add:
