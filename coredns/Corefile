@@ -1,0 +1,21 @@
+.:5300 {
+  forward . tls://9.9.9.9 {
+    tls_servername dns.quad9.net
+    health_check 5s
+  }
+  cache 30
+}
+
+.:5301 {
+  forward . tls://1.1.1.1 {
+    tls_servername tls.cloudflare_dns.com
+    health_check 5s
+  }
+  cache 30
+}
+
+. {
+  proxy . 127.0.0.1:5300 127.0.0.1:5301
+  cache 300
+  health
+}

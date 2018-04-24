@@ -1,0 +1,11 @@
+[Unit]
+Description=CoreDNS container
+After=docker.service NetworkManager.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a coredns
+ExecStop=/usr/bin/docker stop -t 2 coredns
+
+[Install]
+WantedBy=local.target
