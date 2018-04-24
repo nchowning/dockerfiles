@@ -1,1 +1,4 @@
 pass.txt
+*.crt
+*.pem
+*.ovpn

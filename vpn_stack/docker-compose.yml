@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  coredns:
+    build: ../coredns
+    networks:
+      backend:
+        ipv4_address: 10.5.0.2
+
+  vpn:
+    build: ../ovpn
+    volumes:
+      - ../ovpn:/etc/openvpn
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    networks:
+      backend:
+        ipv4_address: 10.5.0.3
+    dns: 10.5.0.2
+
+  app:
+    build: ./app
+    cap_add:
+      - NET_ADMIN
+    networks:
+      backend:
+        ipv4_address: 10.5.0.4
+    dns: 10.5.0.2
+
+networks:
+  backend:
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
