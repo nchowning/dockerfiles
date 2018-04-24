@@ -21,7 +21,7 @@ services:
     dns: 10.5.0.2
 
   app:
-    build: ./app
+    build: ../app
     cap_add:
       - NET_ADMIN
     networks:
