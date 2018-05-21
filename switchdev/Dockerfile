@@ -19,8 +19,9 @@ RUN pacman-key --recv F7FD5492264BB9D0 && \
         make \
         sudo \
         switch-tools \
-        && \
-    pacman -S --noconfirm $(for f in $(pacman -Sl dkp-libs|awk '{print $2}'|grep '^switch-');do echo -n "${f} ";done)
+    && \
+    pacman -S --noconfirm $(for f in $(pacman -Sl dkp-libs|awk '{print $2}'|grep '^switch-');do echo -n "${f} ";done) && \
+    rm -rf /var/cache/pacman/*
 
 ARG uid
 
@@ -37,4 +38,4 @@ USER developer
 WORKDIR /developer
 VOLUME /developer
 
-CMD /bin/bash
+CMD make
