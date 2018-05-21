@@ -18,7 +18,9 @@ RUN pacman-key --recv F7FD5492264BB9D0 && \
         libnx \
         make \
         sudo \
-        switch-tools
+        switch-tools \
+        && \
+    pacman -S --noconfirm $(for f in $(pacman -Sl dkp-libs|awk '{print $2}'|grep '^switch-');do echo -n "${f} ";done)
 
 ARG uid
 
@@ -27,10 +29,12 @@ RUN useradd -d /developer -m -u $uid developer && \
     echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer
 
-USER developer
 ENV HOME=/developer
-WORKDIR /developer
+ENV DEVKITPRO=/opt/devkitpro
+ENV DEVKITARM=/opt/devkitpro/devkitARM
 
+USER developer
+WORKDIR /developer
 VOLUME /developer
 
 CMD /bin/bash
