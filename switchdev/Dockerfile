@@ -4,9 +4,7 @@ ARG uid
 
 RUN dkp-pacman -S --noconfirm devkitARM && \
     useradd -d /developer -m -u $uid developer && \
-    chown -R $uid /developer && \
-    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer
+    chown -R $uid /developer
 
 ENV HOME=/developer
 ENV DEVKITPRO=/opt/devkitpro
